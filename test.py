@@ -13,6 +13,7 @@ import sys
 sys.path.append('../')
 from toproxy import run_proxy
 
+
 class TestStandaloneProxy(unittest.TestCase):
     def setUp(self):
         self.proxy = subprocess.Popen(['python', 'toproxy/proxy.py',

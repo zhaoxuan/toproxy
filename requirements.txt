@@ -1,2 +1,2 @@
-tornado
-gevent
+tornado==4.2
+gevent==1.2.1
