@@ -49,22 +49,9 @@ class MainHandler(tornado.web.RequestHandler):
     def get(self):
         num = int(self.get_argument('num', 0, True))
 
-        ip_list = []
-        if num > 100 or num <= 0:
-            num = 100
-
-        start = 0
-        cursor = 0
-
-        while len(ip_list) < num:
-            cursor, tmp_list = REDIS_CLIENT.scan(cursor)
-
-            if cursor == 0:
-                ip_list += tmp_list
-                break
-            else:
-                ip_list += tmp_list
-                continue
+        ip_list = REDIS_CLIENT.keys()
+        if len(ip_list) > 100:
+            ip_list = ip_list[0:100]
 
         self.write('\n'.join(ip_list))
 
