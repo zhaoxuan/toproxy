@@ -5,6 +5,7 @@
 
 import os
 import re
+import sys
 import argparse
 import logging
 from urlparse import urlparse
@@ -16,6 +17,10 @@ import tornado.web
 import tornado.httpclient
 
 
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s %(levelname)s %(filename)s [line:%(lineno)d] %(message)s',
+                    datefmt='%Y-%m-%d %H:%M:%S',
+                    stream=sys.stdout)
 logger = logging.getLogger()
 
 
@@ -24,7 +29,11 @@ class ProxyHandler(tornado.web.RequestHandler):
 
     @tornado.web.asynchronous
     def get(self):
-        logger.debug('Handle %s request to %s', self.request.method, self.request.uri)
+        logger.debug(
+            'Handle %s request to %s',
+            self.request.method,
+            self.request.uri
+        )
 
         def handle_response(response):
             if (response.error and not
@@ -179,5 +188,5 @@ if __name__ == '__main__':
     else:
         base_auth_user, base_auth_passwd = None, None
 
-    print ("Starting HTTP proxy on port %d" % port)
+    logger.info("Starting HTTP proxy on port %d" % port)
     run_proxy(port)
