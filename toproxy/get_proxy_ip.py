@@ -47,11 +47,27 @@ REDIS_CLIENT = redis.StrictRedis(
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
+        """
+        HTTP GET method process.
+
+        Args:
+            self: this
+
+        Returns:
+            Using self.write to return a string.
+
+        Raises:
+            None.
+        """
+
         num = int(self.get_argument('num', 0, True))
 
         ip_list = REDIS_CLIENT.keys()
+
         if len(ip_list) > 100:
             ip_list = ip_list[0:100]
+        else:
+            ip_list = ip_list[0:num]
 
         self.write('\n'.join(ip_list))
 
