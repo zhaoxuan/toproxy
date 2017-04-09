@@ -41,7 +41,7 @@ LOGGER = logging.getLogger()
 REDIS_CLIENT = redis.StrictRedis(
     host='127.0.0.1',
     port=6379, db=8,
-    password='b5bc60642acc4764be9936b10497b8c1'
+    password='123456'
 )
 
 
@@ -73,6 +73,19 @@ class MainHandler(tornado.web.RequestHandler):
 
 
 def make_app():
+    """
+    New a tornado web application object.
+
+    Args:
+        None:
+
+    Returns:
+        Tornado web application object.
+
+    Raises:
+        None.
+    """
+
     return tornado.web.Application([
         (r"/fetch", MainHandler),
     ])
