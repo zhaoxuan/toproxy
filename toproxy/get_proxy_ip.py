@@ -67,6 +67,8 @@ class MainHandler(tornado.web.RequestHandler):
         if len(ip_list) > 100:
             ip_list = ip_list[0:100]
         else:
+            if num == 0:
+                num = 100
             ip_list = ip_list[0:num]
 
         self.write('\n'.join(ip_list))
