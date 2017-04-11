@@ -64,12 +64,13 @@ class MainHandler(tornado.web.RequestHandler):
 
         ip_list = REDIS_CLIENT.keys()
 
-        if len(ip_list) > 100:
-            ip_list = ip_list[0:100]
+        if num > 100:
+            num = 100
         else:
             if num == 0:
-                num = 100
-            ip_list = ip_list[0:num]
+                num = 10
+
+        ip_list = ip_list[0:num]
 
         self.write('\n'.join(ip_list))
 
